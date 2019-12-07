@@ -1,0 +1,38 @@
+syntax="proto3";
+
+service User {
+    rpc Login(LoginRequest) returns (LoginResponse) {}
+    rpc Register(RegisterRequest) returns (RegisterResponse) {}
+    rpc GetUserInfo(UserInfoRequest) returns (UserInfoResponse) {}
+}
+
+// Login
+message LoginRequest {
+    string UserID = 1;
+    string UserPassword = 2;
+}
+
+message LoginResponse {
+    int32 ErrorCode = 1; // 0: Success 1: Did Not Find User
+    string UserCred = 2; // RANDOM-GENERATED STRING FOR IDENTIFY USER
+}
+
+// Register
+message RegisterRequest {
+    string UserID = 1;
+    string UserPassword = 2;
+}
+
+message RegisterResponse {
+    int32 ErrorCode = 1; // 0: Created 1: UserID Overlapped 2: Password Length Error
+}
+
+// Retrieve User Info
+message UserInfoRequest {
+    string UserCred = 1;
+}
+
+message UserInfoResponse {
+    string UserID = 1;   // UserID
+    bool IsAdmin = 2;    // True if User is Admin, else is False
+}
